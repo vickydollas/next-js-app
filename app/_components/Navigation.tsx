@@ -47,7 +47,7 @@ export default function Navigation() {
               href="/account"
               className="bg-yellow-400 text-black px-5 py-2 rounded-full hover:bg-yellow-300 transition-all duration-300 font-semibold"
             >
-              Guest Area
+              Account
             </Link>
           </li>
         </ul>

@@ -1,20 +1,26 @@
 import CabinCard from "../_components/CabinCard";
+import { getCabins } from "../_lib/data-service";
+import { Suspense } from "react";
+import Spinner from "../_components/Spinner";
+// import {  } from "next/font/google";
+
+// const font = sans();
 
 interface CabinOrder {
-    id: string
-    name: string
-    maxCapacity: number
-    regularPrice: number
-    discount: number
-    image: string
+  id: string;
+  name: string;
+  maxCapacity: number;
+  regularPrice: number;
+  discount: number;
+  image: string;
 }
 
-export default function Page() {
+export default async function Page() {
   // CHANGE
-  const cabins: CabinOrder[] = [];
+  const cabins: CabinOrder[] = await getCabins();
 
   return (
-    <div>
+    <div className="mx-auto px-8 py-3 min-h-screen">
       <h1 className="text-4xl mb-5 text-accent-400 font-medium">
         Our Luxury Cabins
       </h1>
@@ -26,14 +32,15 @@ export default function Page() {
         away from home. The perfect spot for a peaceful, calm vacation. Welcome
         to paradise.
       </p>
-
-      {cabins.length > 0 && (
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-14">
-          {cabins.map((cabin) => (
-            <CabinCard cabin={cabin} key={cabin.id} />
-          ))}
-        </div>
-      )}
+      <Suspense fallback={<Spinner />}>
+        {cabins.length > 0 && (
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 xl:gap-14">
+            {cabins.map((cabin) => (
+              <CabinCard cabin={cabin} key={cabin.id} />
+            ))}
+          </div>
+        )}
+      </Suspense>
     </div>
   );
 }
