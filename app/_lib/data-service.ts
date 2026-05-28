@@ -14,7 +14,7 @@ export const getCabins = async function () {
   //   console.log(data);
   return data;
 };
-export const getCabin = async (id: string) => {
+export const getCabin = async (id?: string) => {
   const { data, error } = await supabase
     .from("cabins")
     .select("*")
@@ -22,7 +22,7 @@ export const getCabin = async (id: string) => {
     .single();
   if (error) {
     console.error(error);
-    throw new Error("Cabin id cannot be loaded");
+    throw new Error("Cabin id cannot be load5ed");
   }
   return data;
 };
